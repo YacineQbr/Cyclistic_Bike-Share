@@ -47,9 +47,77 @@ For this examination i am going to focus on the period between 2021 and 2023 as 
 In this phase, we will clean the data and make it free of errors or mistake which could affect the credibility or the conclusions. To achieve this gool, we will be using couple tools which will be cited as follow. 
 
 **1. Tools**
-* **Excel and MySQL:** Data cleaning
-* **RStudio:** Data analysis
+* **Excel:** Data cleaning
+* **RStudio:** Data cleaning and analysis
 * **Tableau Public:** Data visualisation and reports creation
+
+**1.1. Excel:** 
+
+First I made use of Ms Excel to clean the data. The cleaning steps taken include:
+
+* Removal of columns I won't needing for my analysis like start and end station names, station ids, latitudes, and longitudes.
+* Creation of ride_length column which is the time diference between the trip start time and the end time.
+* Creation of day_of_week column which is the day of the week the trip started.
+* Removal of rows with negative and zero ride lengths.
+
+
+### Phase 4: Analyze
+
+
+
+
+
+**1.1. RStudio:** 
+
+As part of the preparation of data, the following is done:
+
+* the various datasets are imported to R
+* the structure of the datasets are analyzed to ensure consistency
+
+First I added all the libraries necessary for my analysis: 
+
+* >library(tidyverse)
+* >library(lubridate)
+* >library(ggplot2)
+* >library(dplyr)
+* >library(tidyr)
+* >library(readr)
+* >library(tibble)
+* >library(stringr)
+* >library(forcats)
+* >library(readxl)
+
+Then I donwloded the required packages needed for this libraries and analysis.
+
+Later, using **<-read.cvs** loading the 12 datasets for the 12 months of my analysis and combine these datasets into a single dataset 
+
+* > `2022/10` <- read.csv("~/Desktop/Cyclistic data /202210-divvy-tripdata.csv")
+  >   View(`2022/10`)
+* > `2022/11` <- read.csv("~/Desktop/Cyclistic data /202211-divvy-tripdata.csv")
+  >   View(`2022/11`)
+* > `2022/12` <- read.csv("~/Desktop/Cyclistic data /202212-divvy-tripdata.csv")
+  >   View(`2022/12`)
+* > `2023/01` <- read.csv("~/Desktop/Cyclistic data /202301-divvy-tripdata.csv")
+  >   View(`2023/01`)
+* > `2023/02` <- read.csv("~/Desktop/Cyclistic data /202302-divvy-tripdata.csv")
+  >   View(`2023/02`)
+* > `2023/03` <- read.csv("~/Desktop/Cyclistic data /202303-divvy-tripdata.csv")
+  >   View(`2023/03`)
+* > `2023/04` <- read.csv("~/Desktop/Cyclistic data /202304-divvy-tripdata.csv")
+  >   View(`2023/04`)
+* > `2023/05` <- read.csv("~/Desktop/Cyclistic data /202305-divvy-tripdata.csv")
+  >   View(`2023/05`)
+* > `2023/06` <- read.csv("~/Desktop/Cyclistic data /202306-divvy-tripdata.csv")
+  >   View(`2023/06`)
+* > `2023/07` <- read.csv("~/Desktop/Cyclistic data /202307-divvy-tripdata.csv")
+  >   View(`2023/07`)
+* > `2023/08` <- read.csv("~/Desktop/Cyclistic data /202308-divvy-tripdata.csv")
+  >   View(`2023/08`)
+* > `2023/09` <- read.csv("~/Desktop/Cyclistic data /202309-divvy-tripdata.csv")
+  >   View(`2023/09`)
+* > `20231/10` <- read.csv("~/Desktop/Cyclistic data /202310-divvy-tripdata.csv")
+  >   View(`20231/10`)
+
 
 
 
