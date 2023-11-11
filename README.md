@@ -48,23 +48,26 @@ In this phase, we will clean the data and make it free of errors or mistake whic
 
 **1. Tools**
 * **Excel:** Data cleaning
-* **RStudio:** Data cleaning and analysis
+* **RStudio:** Data analysis
 * **Tableau Public:** Data visualisation and reports creation
 
 **1.1. Excel:** 
 
-First I made use of Ms Excel to clean the data. The cleaning steps taken include:
+First I opened the CSV files into Ms Excel to clean the data. The cleaning steps taken include:
 
 * Removal of columns I won't needing for my analysis like start and end station names, station ids, latitudes, and longitudes.
-* Creation of ride_length column which is the time diference between the trip start time and the end time.
-* Creation of day_of_week column which is the day of the week the trip started.
+* Creation of ride_length column which is the time diference between the trip start time and the end time substracting the column "started at" and "ended at".
+* Creation of day_of_week column which is the day of the week the trip started using the function WEEKDAY.
 * Removal of rows with negative and zero ride lengths.
-
+* Duplicates: Rows with identical data.
+* Empty Cells: Cells with no data.
+* Inconsistent Formatting: Different formats for the same type of data.
+* Errors and Typos: Incorrect or misspelled entries.
+* Non-printable Characters: Hidden characters that may cause issues
+  
+After cleaning and organizing data, I saved a copy for each CSV file as XLS under a subfolder named XLS.
 
 ### Phase 4: Analyze
-
-
-
 
 
 **1.1. RStudio:** 
@@ -89,36 +92,34 @@ First I added all the libraries necessary for my analysis:
 
 Then I donwloded the required packages needed for this libraries and analysis.
 
-Later, using **<-read.cvs** loading the 12 datasets for the 12 months of my analysis and combine these datasets into a single dataset 
+Later, using **<-read.cvs** loading the 12 datasets for the 12 months from November 2022 untill October 2023 of my analysis and combine these datasets into a single dataset 
 
-* > `2022/10` <- read.csv("~/Desktop/Cyclistic data /202210-divvy-tripdata.csv")
-  >   View(`2022/10`)
-* > `2022/11` <- read.csv("~/Desktop/Cyclistic data /202211-divvy-tripdata.csv")
+* >`2022/11` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202211-divvy-tripdata 2.csv", sep=";")
   >   View(`2022/11`)
-* > `2022/12` <- read.csv("~/Desktop/Cyclistic data /202212-divvy-tripdata.csv")
+* > `2022/12` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202212-divvy-tripdata.csv", sep=";")
   >   View(`2022/12`)
-* > `2023/01` <- read.csv("~/Desktop/Cyclistic data /202301-divvy-tripdata.csv")
+* > `2023/01` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202301-divvy-tripdata.csv", sep=";")
   >   View(`2023/01`)
-* > `2023/02` <- read.csv("~/Desktop/Cyclistic data /202302-divvy-tripdata.csv")
+* > `2023/02` <- read.csv2("~/Desktop/Cyclistic data.CSV/edited CSV/202302-divvy-tripdata.csv", sep=";")
   >   View(`2023/02`)
-* > `2023/03` <- read.csv("~/Desktop/Cyclistic data /202303-divvy-tripdata.csv")
+* > `2023/03` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202303-divvy-tripdata.csv", sep=";")
   >   View(`2023/03`)
-* > `2023/04` <- read.csv("~/Desktop/Cyclistic data /202304-divvy-tripdata.csv")
+* > `2023/04` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202304-divvy-tripdata.csv", sep=";")
   >   View(`2023/04`)
-* > `2023/05` <- read.csv("~/Desktop/Cyclistic data /202305-divvy-tripdata.csv")
+* > `2023/05` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202305-divvy-tripdata.csv", sep=";")
   >   View(`2023/05`)
-* > `2023/06` <- read.csv("~/Desktop/Cyclistic data /202306-divvy-tripdata.csv")
+* > `2023/06` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202306-divvy-tripdata.csv", sep=";")
   >   View(`2023/06`)
-* > `2023/07` <- read.csv("~/Desktop/Cyclistic data /202307-divvy-tripdata.csv")
+* > `2023/07` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202307-divvy-tripdata.csv", sep=";")
   >   View(`2023/07`)
-* > `2023/08` <- read.csv("~/Desktop/Cyclistic data /202308-divvy-tripdata.csv")
+* > `2023/08` <- read.csv2("~/Desktop/Cyclistic data.CSV/edited CSV/202308-divvy-tripdata.csv", sep=";")
   >   View(`2023/08`)
-* > `2023/09` <- read.csv("~/Desktop/Cyclistic data /202309-divvy-tripdata.csv")
+* > `2023/09` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202309-divvy-tripdata.csv", sep=";")
   >   View(`2023/09`)
-* > `20231/10` <- read.csv("~/Desktop/Cyclistic data /202310-divvy-tripdata.csv")
-  >   View(`20231/10`)
+* > `2023/10` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202310-divvy-tripdata.csv", sep=";")
+  >   View(`2023/10`)
 
-
+Now is to combine all the dataset into one: 
 
 
 
