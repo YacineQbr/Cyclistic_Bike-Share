@@ -35,12 +35,12 @@ Subsidiary stakeholders:
 ### Phase 2: Prepare
 
 **1. Data Sources**
-In this project, we will be using a public historical trip data provided by the company itself under this [licence](https://divvybikes.com/data-license-agreement). The data has been made available by Motivate International Inc. The statistics are orgnized as long data in CSV files  which gives information from 2013 to 2023, and it was retreived from [Data](https://divvy-tripdata.s3.amazonaws.com/index.html) and it has been safely stored in a local drive. 
+In this project, we will be using a public historical trip data provided by the company itself has been made available by Motivate International Inc. under this [licence](https://divvybikes.com/data-license-agreement). The data has been made available by Motivate International Inc. The statistics are orgnized as long data in CSV files  which gives information from 2013 to 2023, and it was retreived from [Data](https://divvy-tripdata.s3.amazonaws.com/index.html) and it has been safely stored in a local drive. 
 The data is a good fit for this analysis as it accomplish the required conditions for the credibility and fullfill the ROCCC approach: **Reliable**, **Original**, **Comprehensive**, **Current** and **Cited**.
 
 **2. Sort and filter the data**
 
-For this examination i am going to focus on the period between 2021 and 2023 as it is the more recent and relevant period of the business task. 
+For this examination I am going to focus on the period between November 2022 and October 2023 as it is the more recent and relevant period of the business task. 
 
 ### Phase 3: Process
 
@@ -48,12 +48,13 @@ In this phase, we will clean the data and make it free of errors or mistake whic
 
 **1. Tools**
 * **Excel:** Data cleaning
-* **RStudio:** Data analysis
+* **RStudio:** Data Cleaning and analysis
 * **Tableau Public:** Data visualisation and reports creation
 
 **1.1. Excel:** 
 
-First I opened the CSV files into Ms Excel to clean the data. The cleaning steps taken include:
+First I opened the CSV files into Ms Excel to clean the data. during the process I used Power Query Editor which is a useful method for time-saving.  The cleaning steps include:
+
 
 * Removal of columns I won't needing for my analysis like start and end station names, station ids, latitudes, and longitudes.
 * Creation of ride_length column which is the time diference between the trip start time and the end time substracting the column "started at" and "ended at".
@@ -65,10 +66,9 @@ First I opened the CSV files into Ms Excel to clean the data. The cleaning steps
 * Errors and Typos: Incorrect or misspelled entries.
 * Non-printable Characters: Hidden characters that may cause issues
   
-After cleaning and organizing data, I saved a copy for each CSV file as XLS under a subfolder named XLS.
-
 ### Phase 4: Analyze
 
+There were over 5 million records, making the use of spreadsheets impractical for data cleaning. Faced with two choices, SQL and R, I was a little familir with both of them. Given my penchant for learning new programming languages as a new Data Analyst, I saw this as a valuable chance to acquire R skills. Consequently, I opted for R.
 
 **1.1. RStudio:** 
 
@@ -92,15 +92,15 @@ First I added all the libraries necessary for my analysis:
 
 Then I donwloded the required packages needed for this libraries and analysis.
 
-Later, using **<-read.cvs** loading the 12 datasets for the 12 months from November 2022 untill October 2023 of my analysis and combine these datasets into a single dataset 
+Later, using **<-read.cvs** to load the 12 datasets for the 12 months from November 2022 untill October 2023 of my analysis and combine them into a single dataset. While pulling the dataset, I renamed each file to this format YYYY/MM.
 
-* >`2022/11` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202211-divvy-tripdata 2.csv", sep=";")
+* > `2022/11` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202211-divvy-tripdata.csv", sep=";")
   >   View(`2022/11`)
 * > `2022/12` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202212-divvy-tripdata.csv", sep=";")
   >   View(`2022/12`)
 * > `2023/01` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202301-divvy-tripdata.csv", sep=";")
   >   View(`2023/01`)
-* > `2023/02` <- read.csv2("~/Desktop/Cyclistic data.CSV/edited CSV/202302-divvy-tripdata.csv", sep=";")
+* > `2023/02` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202302-divvy-tripdata.csv", sep=";")
   >   View(`2023/02`)
 * > `2023/03` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202303-divvy-tripdata.csv", sep=";")
   >   View(`2023/03`)
@@ -112,14 +112,48 @@ Later, using **<-read.cvs** loading the 12 datasets for the 12 months from Novem
   >   View(`2023/06`)
 * > `2023/07` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202307-divvy-tripdata.csv", sep=";")
   >   View(`2023/07`)
-* > `2023/08` <- read.csv2("~/Desktop/Cyclistic data.CSV/edited CSV/202308-divvy-tripdata.csv", sep=";")
+* > `2023/08` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202308-divvy-tripdata.csv", sep=";")
   >   View(`2023/08`)
 * > `2023/09` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202309-divvy-tripdata.csv", sep=";")
   >   View(`2023/09`)
 * > `2023/10` <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202310-divvy-tripdata.csv", sep=";")
   >   View(`2023/10`)
 
-Now is to combine all the dataset into one: 
+Now is to check column structures using str() to inspect the structure of each dataset and verify that the columns are in the same order and have compatible data types across datasets.
+After running the function on all data, it appears that each dataset has seven variables (ride_id, rideable_type, started_at, ended_at, member_casual, ride_length, and day_of_week), but the column names might differ in some datasets. For instance, in 2023/08 and 2023/02, there's a typo in the column name day_of_.week and day_of_column compared to the other datasets where it's named day_of_week. This will require us to correct the typo using the command: 
+* **colnames(`2023/08`)[colnames(`2023/08`) == "day_of_.week"] <- "day_of_week"** and
+* **names(`2023/02`)[names(`2023/02`) == "day_of_column"] <- "day_of_week"** 
+
+Now is to combine and merge all the dataset into one using the command: 
+* **combined_data <- rbind(`2022/11`, `2022/12`, `2023/01`, `2023/02`, `2023/03`, `2023/04`, `2023/05`, `2023/06`, `2023/07`, `2023/08`, `2023/09`, `2023/10`)**
+
+![combined-data](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/bca0f764-6866-4ec5-b1c3-2170124f1f03)
+
+#### Data Cleaning: 
+Ensuing that data is clean and ready for analysis is crucial for several reasons:
+
+* Reliable Insights: Clean data ensures the accuracy and reliability of your analysis. It reduces the chances of errors, ensuring that the conclusions drawn from the data are trustworthy.
+* Credibility: Clean data increases the credibility of your findings. Stakeholders, decision-makers, or clients are more likely to trust conclusions drawn from well-maintained, clean data.
+* Informed Decision-Making: Clean data leads to accurate insights, aiding in informed decision-making. Organizations can make better strategic decisions based on reliable information.
+* Avoiding Biased Results: Dirty data, with inconsistencies, errors, or missing values, can introduce bias into your analysis. Clean data minimizes this risk, providing a more accurate representation.
+* Optimized Resource Utilization: Spending time cleaning and preparing data can be resource-intensive. Ensuring data cleanliness upfront saves time and resources in the long run.
+* Better Models: Clean data contributes to the accuracy of predictive models. Models trained on clean data tend to perform better and offer more accurate predictions.
+* Compliance: In regulated industries, adhering to data cleanliness standards is necessary for compliance with legal and industry-specific regulations.
+* Effective Collaboration: Clean data facilitates collaboration among teams. It's easier for multiple stakeholders to understand and work with clean datasets.
+* Clear Communication: Clean data simplifies the communication of findings and insights to diverse audiences, ensuring that everyone understands and interprets the results correctly.
+* Iterative Process: Regularly cleaning and maintaining data promotes a culture of continuous improvement, enhancing data quality over time.
+
+To achieve that, I will be running couple command and functions on RStudio:
+
+1. Checking Structure and Summary
+2. Missing Values
+3. Check for Duplicates
+4. Data Transformation
+
+Click here to view the R script for these stpes.
+
+### Phase 4: Analyze
+
 
 
 
