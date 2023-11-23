@@ -159,7 +159,7 @@ Ensuing that data is clean and ready for analysis is crucial for several reasons
 
 To achieve that, I will be running couple command and functions on RStudio:
 
-# 1. Checking Structure and Summary
+##### 1. Checking Structure and Summary
 
 ```Structure for data_2022_11 :
 # List of all dataset variables
@@ -175,54 +175,54 @@ for (data_var in data_variables) {
 }
 # Result: 
 Column names for data_2022_11 :
-[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
 Column names for data_2022_12 :
-[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
 Column names for data_2023_01 :
-[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
 Column names for data_2023_02 :
-[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+[1]  "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
 Column names for data_2023_03 :
-[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
 Column names for data_2023_04 :
-[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
 Column names for data_2023_05 :
-[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
 Column names for data_2023_06 :
-[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
 Column names for data_2023_07 :
-[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
 Column names for data_2023_08 :
-[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
 Column names for data_2023_09 :
-[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
 Column names for data_2023_10 :
-[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 ```
-# 2. Missing Values
+#### 2. Missing Values
 
 There are many options to check for missing values using functions like is.na() or summarise().
 ```
@@ -236,7 +236,7 @@ There are many options to check for missing values using functions like is.na() 
 ```
 It appears that there is no missing values.
 
-# 3. Check for Duplicates
+#### 3. Check for Duplicates
 ```
 combined_data<- distinct(combined_data, .keep_all = TRUE)
 ```
@@ -360,7 +360,18 @@ View(pivot_table)
 ```
 ![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/29226882-2c13-4c7d-b1f1-e4f022718c89)
 
-### Analysis results and insights:
+**1.2. Tableau:**
+
+
+
+
+
+
+
+
+
+
+#### Analysis results and insights:
 From the provided bar chartes and pivot tables, it's possible to extract several insights and observe differences in behavior between casual and member riders:
 
 1. Average Ride Length:
@@ -386,6 +397,7 @@ Member riders seem to utilize the service for shorter and possibly more routine 
 These insights suggest that casual riders tend to have longer rides and more variable ride counts across days, potentially using the service for leisure or occasional transportation. On the other hand, member riders show a more consistent pattern in both ride length and ride count, indicating a more routine usage, possibly for regular commuting or specific purposes. These observations could guide strategies for targeting different user groups, adjusting service offerings, or tailoring marketing efforts to attract and retain both casual and member riders
 
 ### Phase 5: Share 
+
 
 
 
