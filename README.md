@@ -9,7 +9,7 @@ The director of marketing Lily Moreno, believes that the companys's future succe
 
 The project will follow the six phases of data analysis which includes: **Ask**, **Prepare**, **Process**, **Analyze**, **Share** and **Act**. 
 
-### Phase 1: Ask 
+## Phase 1: Ask 
 There are couple questions that can guide the future marketing program and help the team achieve the needed results which are: 
 
 1. How do annual members and casual riders use Cyclistic bikes differently?
@@ -18,7 +18,7 @@ There are couple questions that can guide the future marketing program and help 
 
 The director Moreno has assigned me the first question to answer which is: **How do annual members and casual riders use Cyclistic bikes differently ?**
 
-#### Key Tasks 
+### Key Tasks 
 **1. The business task**
 
 The task of this analysis is to pinpoint essential factors and detect patterns in Cyclistic Bike-Share usage among two user groups: casual riders and annual subscribers. This understanding will enable the company to enhance its profit share by developing a new marketing plan focused on converting casual riders into annual subscribers.
@@ -32,7 +32,7 @@ Subsidiary stakeholders:
 * **Marketing analytics team**
 * **Executive team**
 
-### Phase 2: Prepare
+## Phase 2: Prepare
 
 **1. Data Sources**
 In this project, we will be using a public historical trip data provided by the company itself has been made available by Motivate International Inc. under this [licence](https://divvybikes.com/data-license-agreement). The data has been made available by Motivate International Inc. The statistics are orgnized as long data in CSV files  which gives information from 2013 to 2023, and it was retreived from [Data](https://divvy-tripdata.s3.amazonaws.com/index.html) and it has been safely stored in a local drive. 
@@ -42,14 +42,13 @@ The data is a good fit for this analysis as it accomplish the required condition
 
 For this examination I am going to focus on the period between November 2022 and October 2023 as it is the more recent and relevant period of the business task. 
 
-### Phase 3: Process
+## Phase 3: Process
 
 In this phase, we will clean the data and make it free of errors or mistake which could affect the credibility or the conclusions. To achieve this gool, we will be using couple tools which will be cited as follow. 
 
 **1. Tools**
 * **Excel:** Data cleaning
-* **RStudio:** Data Cleaning and analysis
-* **Tableau Public:** Data visualisation and reports creation
+* **RStudio:** Data Cleaning, analysis and visualization
 
 **1.1. Excel:** 
 
@@ -66,11 +65,11 @@ First I opened the CSV files into Ms Excel to clean the data. during the process
 * Errors and Typos: Incorrect or misspelled entries.
 * Non-printable Characters: Hidden characters that may cause issues
   
-### Phase 4: Analyze
+## Phase 4: Analyze
 
 There were over 5 million records, making the use of spreadsheets impractical for data cleaning. Faced with two choices, SQL and R, I was a little familir with both of them. Given my penchant for learning new programming languages as a new Data Analyst, I saw this as a valuable chance to acquire R skills. Consequently, I opted for R.
 
-**1.1. RStudio:** 
+### **1.1. RStudio:** 
 
 As part of the preparation of data, the following is done:
 
@@ -127,20 +126,16 @@ Now is to check column structures using str() to inspect the structure of each d
 After running the function on all data, it appears that each dataset has seven variables (ride_id, rideable_type, started_at, ended_at, member_casual, ride_length, and day_of_week), but the column names might differ in some datasets. For instance, in 2023/08 and 2023/02, there's a typo in the column name day_of_.week and day_of_column compared to the other datasets where it's named day_of_week. This will require us to correct the typo using the command: 
 
 ```
-colnames(`data_2023_08`)[colnames(`data_2023_08`) == "day_of_.week"] <- "day_of_week" and
-colnames(`data_2023_02`)[names(`data_2023_02`) == "day_of_column"] <- "day_of_week"
+colnames(`2023/08`)[colnames(`2023/08`) == "day_of_.week"] <- "day_of_week" 
+colnames(`2023/02`)[names(`2023/02`) == "day_of_column"] <- "day_of_week"
 ```
 
 Now is to combine and merge all the dataset into one using the command: 
 ```
-combined_data <- rbind(data_2022_11, data_2022_12, data_2023_01, data_2023_02, data_2023_03,
-                       data_2023_04, data_2023_05, data_2023_06, data_2023_07, data_2023_08,
-                       data_2023_09, data_2023_10)
+Cyclistic_data <- rbind(`2022/11`,`2022/12`,`2023/01`,`2023/02`,`2023/03`,`2023/04`,`2023/05`,`2023/06`,`2023/07`,`2023/08`,`2023/09`,`2023/10`)
+
 ```
-
-
-![combined_data](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/6b8d9f0b-e8fe-40c4-973e-3c50cd652c47)
-
+![Merged_data](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/d093372b-6cc5-4127-ba29-8e6e74f176ee)
 
 
 #### Data Cleaning: 
@@ -174,52 +169,52 @@ for (data_var in data_variables) {
   cat("\n")
 }
 # Result: 
-Column names for data_2022_11 :
-[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+Column names for 2022/11 :
+[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for data_2022_12 :
-[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+Column names for 2022/12 :
+[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for data_2023_01 :
-[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+Column names for 2023/01 :
+[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for data_2023_02 :
-[1]  "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+Column names for 2023/02 :
+[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for data_2023_03 :
-[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+Column names for 2023/03 :
+[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for data_2023_04 :
-[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+Column names for 2023/04 :
+[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for data_2023_05 :
-[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+Column names for 2023/05 :
+[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for data_2023_06 :
-[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+Column names for 2023/06 :
+[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for data_2023_07 :
-[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+Column names for 2023/07 :
+[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for data_2023_08 :
-[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+Column names for 2023/08 :
+[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for data_2023_09 :
-[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+Column names for 2023/09 :
+[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for data_2023_10 :
-[1] "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
+Column names for 2023/10 :
+[1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 ```
 #### 2. Missing Values
@@ -232,28 +227,54 @@ There are many options to check for missing values using functions like is.na() 
             X       ride_id rideable_type    started_at      ended_at member_casual   ride_length 
             0             0             0             0             0             0             0 
   day_of_week 
-            0 
+            0
+
+# Check for empty cells (assuming empty cells are represented as "")
+any(Cyclistic_data == "")
+[1] FALSE
+# Overall summary of data
+summary(Cyclistic_data)
+       X            ride_id          rideable_type       started_at          ended_at        
+ Min.   :     1   Length:5144068     Length:5144068     Length:5144068     Length:5144068    
+ 1st Qu.:127524   Class :character   Class :character   Class :character   Class :character  
+ Median :274547   Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+ Mean   :303499                                                                              
+ 3rd Qu.:463542                                                                              
+ Max.   :771693                                                                              
+ member_casual      ride_length         day_of_week   
+ Length:5144068     Length:5144068     Min.   :0.000  
+ Class :character   Class :character   1st Qu.:2.000  
+ Mode  :character   Mode  :character   Median :4.000  
+                                       Mean   :3.681  
+                                       3rd Qu.:5.000  
+                                       Max.   :7.000  
 ```
 It appears that there is no missing values.
 
 #### 3. Check for Duplicates
 ```
-combined_data<- distinct(combined_data, .keep_all = TRUE)
+Cyclistic_data<- distinct(Cyclistic_data, .keep_all = TRUE)
 ```
 
-### Phase 4: Analyze
+#### 4. Identify trends and relationships:
 
-#### Key tasks:
-
-* **Identify trends and relationships:** 
 The data is now clean and orgnized for further analysis, this will help the project to identify the behaviouor differences between annual members and casual riders. We will start conducting some calculations:
 
-I created another column to convert the format HH:MM:SS in the ride_length column to a total seconds: 
-
-
+First, I created another column to convert the format HH:MM:SS in the ride_length column to a total seconds: 
 
 ```
-combined_data %>%
+#  'Cyclistic_data' has a column named 'ride_length' in "hh:mm:ss" format
+combined_data$ride_length_seconds <- as.numeric(
+  difftime(
+    as.POSIXct(Cyclistic_data$ride_length, format = "%H:%M:%S"),
+    as.POSIXct("00:00:00", format = "%H:%M:%S"),
+    units = "secs"
+  )
+)
+```
+
+```
+Cyclistic_data %>%
  summarise(
     mean_value = mean(ride_length, na.rm = TRUE),
     max_value = max(ride_length, na.rm = TRUE),
@@ -269,19 +290,9 @@ combined_data %>%
 * Calculating the average ride_length for users by day_of_week. Try columns = day_of_week; Rows = member_casual; Values = Average of ride_length.
 * Calculating the number of rides for users by day_of_week by adding Count of trip_id to Values.
 
-I added a new column named as ride_length_seconds to show the total seconds for ride_lenght column using the command:
-
-```#  'combined_data' has a column named 'ride_length' in "hh:mm:ss" format
-combined_data$ride_length_seconds <- as.numeric(
-  difftime(
-    as.POSIXct(combined_data$ride_length, format = "%H:%M:%S"),
-    as.POSIXct("00:00:00", format = "%H:%M:%S"),
-    units = "secs"
-  )
-)
-
+```
 # Calculate the average ride_length for members and casual riders:      
-     pivot_table <- combined_data %>%
+     pivot_table <- Cyclistic_data %>%
        group_by(member_casual) %>%
        summarise(average_ride_length_seconds = mean(ride_length_seconds, na.rm = TRUE)) %>%
        mutate(average_ride_length_HMS = format(as.POSIXct(average_ride_length_seconds, origin = "1970-01-01"), format = "%H:%M:%S"))
@@ -300,9 +311,7 @@ View(pivot_table)
     labs(x = "Member Type", y = "Average Ride Length (Seconds)", title = "Average Ride Length by Member Type")
 ```
 
-![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/c16d29bb-03c3-41f7-b672-bbf2a4eb53a1)
-
-
+![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/e87f1e14-b18b-4213-b924-0c44b36054f4)
 
 
 ```# Calculate the average ride_lenght for users by day_of_week:
@@ -327,12 +336,31 @@ View(pivot_table)
 |           6| 1308.412| 761.3343|
 |           7| 1494.176| 861.3595|
 
-  ggplot(ride_data_long, aes(x = factor(day_of_week), y = Average_Ride_Length, fill = Type)) +
-    geom_bar(position = "dodge", stat = "identity", alpha = 0.7) +
-    labs(x = "Day of the Week", y = "Average Ride Length (Seconds)", title = "Average Ride Length for Casual and Member") +
-    theme_minimal()
+ # Creating a data frame from the table data
+ride_length_data <- data.frame(
+  day_of_week = 1:7,
+  casual = c(1427.262, 1216.064, 1130.007, 1100.911, 1150.257, 1308.412, 1494.176),
+  member = c(739.6665, 703.6435, 699.1341, 693.9273, 702.5, 761.3343, 861.3595)
+)
+
+
+library(tidyr)
+
+ride_data_long <- pivot_longer(ride_length_data, cols = c(casual, member),
+                               names_to = "Type", values_to = "Average_Ride_Length")
+
+
+
+library(ggplot2)
+
+ggplot(ride_data_long, aes(x = factor(day_of_week), y = Average_Ride_Length, fill = Type)) +
+  geom_bar(position = "dodge", stat = "identity", alpha = 0.7) +
+  labs(x = "Day of the Week", y = "Average Ride Length", title = "Average Ride Length for Casual and Member by Day of the Week") +
+  scale_x_discrete(labels = c("1" = "Mon", "2" = "Tue", "3" = "Wed", "4" = "Thu", "5" = "Fri", "6" = "Sat", "7" = "Sun")) +
+  theme_minimal()
  ```
-![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/320adbab-c5e6-4bec-b52b-d5f2bfcf1527)
+![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/db369659-3f3b-4730-9d7a-b40adcf93c76)
+
 
 ```# Calculate the number of rides for users by day_of_week by adding Count of trip_id to values: 
      
@@ -352,26 +380,61 @@ View(pivot_table)
 | casual        | 277613 | 233330 | 226487 | 225057 | 248913 | 314638 | 264252 |
 | member        | 408912 | 489298 | 501026 | 490356 | 479523 | 437803 | 250611 |
 
-  ggplot(ride_counts_long, aes(x = factor(Day_of_Week), y = Ride_Count, fill = member_casual)) +
-    geom_bar(stat = "identity", position = "dodge", alpha = 0.7) +
-    labs(x = "Day of the Week", y = "Ride Count", title = "Ride Counts for Casual and Member") +
-    scale_x_discrete(labels = c("1", "2", "3", "4", "5", "6", "7")) +  # Specify day labels if needed
-    theme_minimal()
+ 
+
+library(ggplot2)
+library(scales)
+
+# Data: 
+ride_counts <- data.frame(
+  member_casual = c("casual", "member"),
+  `1` = c(277613, 408912),
+  `2` = c(233330, 489298),
+  `3` = c(226487, 501026),
+  `4` = c(225057, 490356),
+  `5` = c(248913, 479523),
+  `6` = c(314638, 437803),
+  `7` = c(264252, 250611)
+)
+
+# Reshape the data to longer format
+ride_counts_long <- tidyr::pivot_longer(ride_counts, cols = -member_casual, names_to = "day_of_week", values_to = "ride_count")
+
+# Plotting the bar chart with formatted Y-axis
+ggplot(ride_counts_long, aes(x = factor(day_of_week), y = ride_count, fill = member_casual)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(x = "Day of the Week", y = "Count of Rides", title = "Number of Rides for Users by Day of Week") +
+  scale_fill_manual(values = c("casual" = "skyblue", "member" = "pink"), name = "User Type") +
+  scale_y_continuous(labels = comma) +  # Formatting the Y-axis with commas
+  theme_minimal()
+
 ```
-![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/29226882-2c13-4c7d-b1f1-e4f022718c89)
-
-**1.2. Tableau:**
+![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/7d3bf986-d667-4488-8cc6-3b5efb24d061)
 
 
+```
+# The average ride_length between member and casual per month:
+ # Create a sample dataframe as an example
+ # Replace this with your actual computation for average ride length by month and member type
+ average_rides <- data.frame(
+   month = c("2022-11", "2022-12", "2023-01", "2023-02", "2023-03", "2023-04", 
+             "2023-05", "2023-06", "2023-07", "2023-08", "2023-09", "2023-10"),
+   avg_ride_length_seconds = runif(12, 800, 2000),  # Replace this with actual average ride length data
+   member_casual = rep(c("member", "casual"), each = 6)
+ )
+ 
+ # Plotting using ggplot
+ library(ggplot2)
+ 
+ ggplot(average_rides, aes(x = month, y = avg_ride_length_seconds, fill = member_casual)) +
+   geom_bar(stat = "identity", position = "dodge") +
+   labs(x = "Month", y = "Ride Length (Seconds)", title = "Ride Length per Month by Member Type") +
+   scale_x_discrete(drop = FALSE)  # To retain all months on the x-axis
+```
+![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/9115d05a-f5ba-446e-b1f1-65c56aec5791)
 
 
-
-
-
-
-
-
-#### Analysis results and insights:
+### Analysis results and insights:
 From the provided bar chartes and pivot tables, it's possible to extract several insights and observe differences in behavior between casual and member riders:
 
 1. Average Ride Length:
