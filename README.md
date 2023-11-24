@@ -412,28 +412,6 @@ ggplot(ride_counts_long, aes(x = factor(day_of_week), y = ride_count, fill = mem
 ![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/7d3bf986-d667-4488-8cc6-3b5efb24d061)
 
 
-```
-# The average ride_length between member and casual per month:
- # Create a sample dataframe as an example
- # Replace this with your actual computation for average ride length by month and member type
- average_rides <- data.frame(
-   month = c("2022-11", "2022-12", "2023-01", "2023-02", "2023-03", "2023-04", 
-             "2023-05", "2023-06", "2023-07", "2023-08", "2023-09", "2023-10"),
-   avg_ride_length_seconds = runif(12, 800, 2000),  # Replace this with actual average ride length data
-   member_casual = rep(c("member", "casual"), each = 6)
- )
- 
- # Plotting using ggplot
- library(ggplot2)
- 
- ggplot(average_rides, aes(x = month, y = avg_ride_length_seconds, fill = member_casual)) +
-   geom_bar(stat = "identity", position = "dodge") +
-   labs(x = "Month", y = "Ride Length (Seconds)", title = "Ride Length per Month by Member Type") +
-   scale_x_discrete(drop = FALSE)  # To retain all months on the x-axis
-```
-![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/9115d05a-f5ba-446e-b1f1-65c56aec5791)
-
-
 ### Analysis results and insights:
 From the provided bar chartes and pivot tables, it's possible to extract several insights and observe differences in behavior between casual and member riders:
 
