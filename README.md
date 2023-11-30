@@ -3,7 +3,7 @@ A Case Study on how does a Bike-Share navigate speedy success:
 
 This Case Study has been created as an essential component of the Google Data Analytics Professional Certificate Capstone.
 
-## Senario and Projet Overview 
+## Scenario and Projet Overview 
 Cyclistic is a bike-share company in Chicago that was luanched in 2016. Since then, the program has grown to a fleet of 5,824 bicycles that are geotracked and locked into a network of 692 stations across Chicago. The bikes can be unlocked from one station and returned to any other station in the system anytime. 
 The director of marketing Lily Moreno, believes that the companys's future success depends on maximizing the number of memberships. Therefore, This data analysis aims to offer comprehensive insights into the distinct usage patterns of Cyclistic Bikes, encompassing both casual passengers and annual subscribers. Through a meticulous examination of various facets of the data, this analysis endeavors to discern prevalent trends, formulate data-driven recommendations, and deisgn a new markeing stratgey to convert casual passengers into annual subscribers. 
 
@@ -52,10 +52,10 @@ In this phase, we will clean the data and make it free of errors or mistake whic
 
 **1.1. Excel:** 
 
-First I opened the CSV files into Ms Excel to clean the data. during the process I used Power Query Editor which is a useful method for time-saving.  The cleaning steps include:
+First I opened the CSV files into Ms Excel to clean the data. during the process I used Power Query Editor. The cleaning steps include:
 
 
-* Removal of columns I won't needing for my analysis like start and end station names, station ids, latitudes, and longitudes.
+* Removal of columns I won't needing for my analysis like latitudes, and longitudes.
 * Creation of ride_length column which is the time diference between the trip start time and the end time substracting the column "started at" and "ended at".
 * Creation of day_of_week column which is the day of the week the trip started using the function WEEKDAY.
 * Removal of rows with negative and zero ride lengths.
@@ -126,13 +126,14 @@ Now is to check column structures using str() to inspect the structure of each d
 After running the function on all data, it appears that each dataset has seven variables (ride_id, rideable_type, started_at, ended_at, member_casual, ride_length, and day_of_week), but the column names might differ in some datasets. For instance, in 2023/08 and 2023/02, there's a typo in the column name day_of_.week and day_of_column compared to the other datasets where it's named day_of_week. This will require us to correct the typo using the command: 
 
 ```
-colnames(`2023/08`)[colnames(`2023/08`) == "day_of_.week"] <- "day_of_week" 
-colnames(`2023/02`)[names(`2023/02`) == "day_of_column"] <- "day_of_week"
+colnames(`data_2023_08`)[colnames(`data_2023_08`) == "day_of_.week"] <- "day_of_week" 
+colnames(`data_2023_02`)[colnames(`data_2023_02`) == "day_of_column"] <- "day_of_week"
 ```
 
 Now is to combine and merge all the dataset into one using the command: 
 ```
-Cyclistic_data <- rbind(`2022/11`,`2022/12`,`2023/01`,`2023/02`,`2023/03`,`2023/04`,`2023/05`,`2023/06`,`2023/07`,`2023/08`,`2023/09`,`2023/10`)
+Cyclistic_data < rbind(`data_2022_11`,`data_2022_12`,`data_2023_01`,`data_2023_02`,`data_2023_03`,`data_2023_04`,`data_2023_05`,`data_2023_06`,`data_2023_07`,`data_2023_08`,
+`data_2023_09`,`data_2023_10`)
 
 ```
 ![Merged_data](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/d093372b-6cc5-4127-ba29-8e6e74f176ee)
@@ -169,53 +170,53 @@ for (data_var in data_variables) {
   cat("\n")
 }
 # Result: 
-Column names for 2022/11 :
+Column names for data_2022_11 :
 [1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for 2022/12 :
+Column names for data_2022_12 :
 [1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for 2023/01 :
+Column names for data_2023_01 :
 [1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for 2023/02 :
+Column names for data_2023_02 :
 [1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for 2023/03 :
+Column names for data_2023_03 :
 [1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for 2023/04 :
+Column names for data_2023_04 :
 [1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for 2023/05 :
+Column names for data_2023_05 :
 [1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for 2023/06 :
+Column names for data_2023_06 :
 [1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for 2023/07 :
+Column names for data_2023_07 :
 [1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for 2023/08 :
+Column names for data_2023_08 :
 [1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for 2023/09 :
+Column names for data_2023_09 :
 [1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"  
 
-Column names for 2023/10 :
+Column names for data_2023_10 :
 [1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
-[7] "ride_length"   "day_of_week"  
+[7] "ride_length"   "day_of_week"   
 ```
 #### 2. Missing Values
 
@@ -264,7 +265,7 @@ First, I created another column to convert the format HH:MM:SS in the ride_lengt
 
 ```
 #  'Cyclistic_data' has a column named 'ride_length' in "hh:mm:ss" format
-combined_data$ride_length_seconds <- as.numeric(
+Cyclistic_data$ride_length_seconds <- as.numeric(
   difftime(
     as.POSIXct(Cyclistic_data$ride_length, format = "%H:%M:%S"),
     as.POSIXct("00:00:00", format = "%H:%M:%S"),
@@ -285,46 +286,145 @@ Cyclistic_data %>%
 1    1927533 9988946759 -34398148         1133
 ```
 
-* **Creating pivot tables to quickly calculate and visualize the data:**
+
+Then I started Creating pivot tables to quickly calculate and visualize the data, and these are the cases and options I am following accordingly: 
+
+* The membership status of the riders 
+* The number of rides between types per months
 * Calculating the average ride_length for members and casual riders. Try rows = member_casual; Values = Average of ride_length.
 * Calculating the average ride_length for users by day_of_week. Try columns = day_of_week; Rows = member_casual; Values = Average of ride_length.
 * Calculating the number of rides for users by day_of_week by adding Count of trip_id to Values.
 
 ```
-# Calculate the average ride_length for members and casual riders:      
-     pivot_table <- Cyclistic_data %>%
+# 1. The membership status of the riders: 
+
+pivot_table_1 <- Cyclistic_data %>%
+  group_by(member_casual) %>%
+  summarize(total_rides = n())
+
+| member_casual | total_rides |
+|---------------|-------------|
+| casual        | 1914202     |
+| member        | 3229866     |
+
+
+# Calculate total rides per membership status
+total_rides <- Cyclistic_data %>%
+  group_by(member_casual) %>%
+  summarise(total_rides = n())
+
+# Define colors for categories
+colors <- c("lightpink", "skyblue")
+
+# Create pie chart
+pie(total_rides$total_rides, 
+    labels = percent(total_rides$total_rides / sum(total_rides$total_rides)),
+    col = colors,
+    main = "Rides by Membership Status")
+
+# Create legend
+legend("topright", legend = total_rides$member_casual, fill = colors, title = "Membership Status")
+
+```
+![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/3f26306b-d17e-4103-91ea-755a28013363)
+
+```
+# 2. The number of rides between types per months
+
+pivot_table_2<- Cyclistic_data %>%
+  group_by(month, member_casual) %>%
+  summarize(total_rides = n())
+
+| month | member_casual | total_rides |
+|-------|---------------|-------------|
+| 1     | casual        | 40008       |
+| 1     | member        | 150293      |
+| 2     | casual        | 43016       |
+| 2     | member        | 147429      |
+| 3     | casual        | 62201       |
+| 3     | member        | 196477      |
+| 4     | casual        | 147285      |
+| 4     | member        | 279305      |
+| 5     | casual        | 234181      |
+| 5     | member        | 370646      |
+| 6     | casual        | 301230      |
+| 6     | member        | 418388      |
+| 7     | casual        | 331358      |
+| 7     | member        | 436292      |
+| 8     | casual        | 311130      |
+| 8     | member        | 460563      |
+| 9     | casual        | 261635      |
+| 9     | member        | 404736      |
+| 10    | casual        | 177067      |
+| 10    | member        | 360041      |
+| 11    | casual        | 3363        |
+| 11    | member        | 2831        |
+| 12    | casual        | 1728        |
+| 12    | member        | 2865        |
+
+
+
+# Convert 'started_at' to a Date object if it's not already
+Cyclistic_data$started_at <- as.Date(Cyclistic_data$started_at)
+
+# Extract month from the 'started_at' column
+Cyclistic_data$month <- month(Cyclistic_data$started_at)
+
+# Group data by month and member_casual, calculate total rides
+total_rides <- Cyclistic_data %>%
+  group_by(month, member_casual) %>%
+  summarise(total_rides = n())
+
+# Create a bar chart
+ggplot(total_rides, aes(x = factor(month), y = total_rides, fill = member_casual)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(x = "Month", y = "Total Rides", fill = "Member Type") +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +  # Format y-axis labels
+  ggtitle("Total Rides by Month and Member Type") +
+  theme_minimal()
+```
+![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/aedc5dc5-fae9-48e7-8ef4-7d0c1c1aa51b)
+
+```
+# 3. Calculate the average ride_length for members and casual riders:      
+     pivot_table_3 <- Cyclistic_data %>%
        group_by(member_casual) %>%
        summarise(average_ride_length_seconds = mean(ride_length_seconds, na.rm = TRUE)) %>%
        mutate(average_ride_length_HMS = format(as.POSIXct(average_ride_length_seconds, origin = "1970-01-01"), format = "%H:%M:%S"))
      
 View(pivot_table)
- # Display the pivot_table as markdown
-  knitr::kable(pivot_table, format = "markdown")
+ # Display the pivot_table_3 as markdown
+  knitr::kable(pivot_table_3, format = "markdown")
 
 | member_casual | average_ride_length_seconds | average_ride_length_HMS |
 |---------------|-----------------------------|-------------------------|
 | casual        | 1285.1855                   | 00:21:25                |
 | member        | 730.0165                    | 00:12:10                |
 
-  ggplot(pivot_table, aes(x = member_casual, y = average_ride_length_seconds, fill = member_casual)) +
-    geom_bar(stat = "identity", position = "dodge") +
-    labs(x = "Member Type", y = "Average Ride Length (Seconds)", title = "Average Ride Length by Member Type")
+
+
+# Create a ggplot 
+ggplot(Cyclistic_data, aes(x = member_casual, y = mean(ride_length_seconds), fill = member_casual)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(x = "Member Type", y = "Average Ride Length (Seconds)", title = "Average Ride Length by Member Type") +
+  theme_minimal()
+
 ```
 
 ![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/e87f1e14-b18b-4213-b924-0c44b36054f4)
 
 
-```# Calculate the average ride_lenght for users by day_of_week:
+```# 4. Calculate the average ride_lenght for users by day_of_week:
      
-    pivot_table_2 <- combined_data %>%
+    pivot_table_4 <- combined_data %>%
     filter(day_of_week != 0) %>%
     group_by(member_casual, day_of_week) %>%
     summarise(average_ride_length_seconds = mean(ride_length_seconds, na.rm = TRUE)) %>%
     pivot_wider(names_from = member_casual, values_from = average_ride_length_seconds)
   
-  pivot_table_2
-  # Display the pivot_table_2 as markdown
-  knitr::kable(pivot_table_2, format = "markdown")
+  pivot_table_4
+  # Display the pivot_table_4 as markdown
+  knitr::kable(pivot_table_4, format = "markdown")
 
 | day_of_week|   casual|   member|
 |-----------:|--------:|--------:|
@@ -336,6 +436,7 @@ View(pivot_table)
 |           6| 1308.412| 761.3343|
 |           7| 1494.176| 861.3595|
 
+
  # Creating a data frame from the table data
 ride_length_data <- data.frame(
   day_of_week = 1:7,
@@ -344,12 +445,9 @@ ride_length_data <- data.frame(
 )
 
 
-library(tidyr)
 
 ride_data_long <- pivot_longer(ride_length_data, cols = c(casual, member),
                                names_to = "Type", values_to = "Average_Ride_Length")
-
-
 
 library(ggplot2)
 
@@ -362,15 +460,15 @@ ggplot(ride_data_long, aes(x = factor(day_of_week), y = Average_Ride_Length, fil
 ![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/db369659-3f3b-4730-9d7a-b40adcf93c76)
 
 
-```# Calculate the number of rides for users by day_of_week by adding Count of trip_id to values: 
+```# 4. Calculate the number of rides for users by day_of_week by adding Count of trip_id to values: 
      
-     pivot_table_3 <- combined_data %>%
+     pivot_table_5 <- combined_data %>%
        group_by(member_casual, day_of_week) %>%
        summarise(ride_count = n()) %>%
        pivot_wider(names_from = day_of_week, values_from = ride_count)
      
-     print(pivot_table_3)
-     view(pivot_table_3)
+     print(pivot_table_5)
+     view(pivot_table_5)
   
   # Display the pivot_table_3 as markdown
   knitr::kable(pivot_table_3, format = "markdown")
@@ -381,9 +479,6 @@ ggplot(ride_data_long, aes(x = factor(day_of_week), y = Average_Ride_Length, fil
 | member        | 408912 | 489298 | 501026 | 490356 | 479523 | 437803 | 250611 |
 
  
-
-library(ggplot2)
-library(scales)
 
 # Data: 
 ride_counts <- data.frame(
@@ -410,6 +505,11 @@ ggplot(ride_counts_long, aes(x = factor(day_of_week), y = ride_count, fill = mem
 
 ```
 ![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/7d3bf986-d667-4488-8cc6-3b5efb24d061)
+
+
+```
+# 4. Calculate 
+```
 
 
 ### Analysis results and insights:
