@@ -302,10 +302,13 @@ pivot_table_1 <- Cyclistic_data %>%
   group_by(member_casual) %>%
   summarize(total_rides = n())
 
+knitr::kable(pivot_table_1, format = "markdown")
+
 | member_casual | total_rides |
 |---------------|-------------|
 | casual        | 1914202     |
 | member        | 3229866     |
+
 
 
 # Calculate total rides per membership status
@@ -313,27 +316,45 @@ total_rides <- Cyclistic_data %>%
   group_by(member_casual) %>%
   summarise(total_rides = n())
 
-# Define colors for categories
-colors <- c("lightpink", "skyblue")
+# Define colors for categories and corresponding labels
+colors <- c("green", "skyblue")
+labels <- c("Casual", "Member")
 
-# Create pie chart
-pie(total_rides$total_rides, 
-    labels = percent(total_rides$total_rides / sum(total_rides$total_rides)),
+# Create pie chart with specified colors and labels
+pie(total_rides$total_rides,
+    labels = paste0(labels, " ", percent(total_rides$total_rides / sum(total_rides$total_rides))),
     col = colors,
     main = "Rides by Membership Status")
 
-# Create legend
-legend("topright", legend = total_rides$member_casual, fill = colors, title = "Membership Status")
+# Add a legend
+legend("topright", legend = labels, fill = colors, title = "Membership Types")
 
 ```
-![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/3f26306b-d17e-4103-91ea-755a28013363)
+![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/6af4f851-f2bd-430c-aaa4-1383547f26ea)
+
+
+* **Results:**
+- The majority of rides, comprising 63%, are taken by members. This indicates a substantial portion of users opting for annual memberships.
+- Casual riders contribute significantly, representing 37% of the total rides. Despite being a minority compared to members, their presence in ride counts is notable.
+- Membership holders, despite being a smaller group, take a larger share of rides compared to casual riders. This highlights the potential higher frequency or utilization among members.
+
+
 
 ```
 # 2. The number of rides between types per months
 
-pivot_table_2<- Cyclistic_data %>%
-  group_by(month, member_casual) %>%
+
+# Create 'month' column using lubridate package
+library(lubridate)
+Cyclistic_data$month <- month(Cyclistic_data$started_at)
+
+# Create pivot table to count rides per month
+library(dplyr)
+pivot_table_2 <- Cyclistic_data %>%
+  group_by(month) %>%
   summarize(total_rides = n())
+
+knitr::kable(pivot_table_2, format = "markdown")
 
 | month | member_casual | total_rides |
 |-------|---------------|-------------|
@@ -383,7 +404,20 @@ ggplot(total_rides, aes(x = factor(month), y = total_rides, fill = member_casual
   ggtitle("Total Rides by Month and Member Type") +
   theme_minimal()
 ```
-![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/aedc5dc5-fae9-48e7-8ef4-7d0c1c1aa51b)
+![Rplot02](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/537bde85-cfa5-4455-b376-ddcf3be4659a)
+
+
+* **Results:**
+
+- Members consistently show higher ride counts than casual riders across most months.
+- There's a general trend of increased member rides compared to casual rides throughout the year.
+- Understanding the seasonal nature of bike rides might be inferred from variations in the member and casual ride counts across different months.
+- For instance, casual rider counts seem to peak in summer months (e.g., July), possibly due to tourists or seasonal outdoor activities, whereas member counts might have more consistency or variation driven by commuters or year-round users.
+- Members exhibit more consistent and sustained usage month-to-month compared to casual riders. This suggests stronger commitment or habitual usage among members.
+- Casual ridership fluctuates more from month to month, indicating a less predictable or sporadic pattern of usage. This might imply occasional or irregular usage among this group.
+- Insights from the table could inform targeted marketing efforts:
+- For casual riders: Strategies to promote usage during specific seasons or events when casual ridership is typically higher.
+- For members: Encouraging consistent usage throughout the year and possibly offering incentives during months with lower activity to maintain engagement.
 
 ```
 # 3. Calculate the average ride_length for members and casual riders:      
@@ -413,10 +447,19 @@ ggplot(Cyclistic_data, aes(x = member_casual, y = mean(ride_length_seconds), fil
 
 ![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/e87f1e14-b18b-4213-b924-0c44b36054f4)
 
+* **Results:**
 
-```# 4. Calculate the average ride_lenght for users by day_of_week:
+- Casual riders exhibit longer average ride durations (1285.1855 seconds) compared to members (730.0165 seconds), contrary to the bar chart's representation.
+- Contrary to the visual representation, casual riders seem to have longer average ride lengths than members in terms of seconds. This suggests that casual riders might use the bikes for longer durations per ride.
+- Casual riders might prefer longer rides per session compared to members, potentially using the bikes for leisurely activities or exploratory trips.
+- Understanding these behavioral differences can guide service adaptations:
+- For casual riders: Focus on enhancing services for longer rides or facilitating experiences suited for extended biking durations.
+- For members: Offer additional features or incentives targeting longer rides, considering their relatively shorter average ride lengths.
+
+```
+# 4. Calculate the average ride_lenght for users by day_of_week:
      
-    pivot_table_4 <- combined_data %>%
+    pivot_table_4 <- Cyclistic_data %>%
     filter(day_of_week != 0) %>%
     group_by(member_casual, day_of_week) %>%
     summarise(average_ride_length_seconds = mean(ride_length_seconds, na.rm = TRUE)) %>%
@@ -437,30 +480,33 @@ ggplot(Cyclistic_data, aes(x = member_casual, y = mean(ride_length_seconds), fil
 |           7| 1494.176| 861.3595|
 
 
- # Creating a data frame from the table data
-ride_length_data <- data.frame(
-  day_of_week = 1:7,
-  casual = c(1427.262, 1216.064, 1130.007, 1100.911, 1150.257, 1308.412, 1494.176),
-  member = c(739.6665, 703.6435, 699.1341, 693.9273, 702.5, 761.3343, 861.3595)
+# Sample data frame (Replace this with your actual data)
+Cyclistic_data <- data.frame(
+  day_of_week = rep(1:7, 2),
+  member_casual = rep(c("casual", "member"), each = 7),
+  ride_length_seconds = c(1427.262, 1216.064, 1130.007, 1100.911, 1150.257, 1308.412, 1494.176,
+                          739.6665, 703.6435, 699.1341, 693.9273, 702.5, 761.3343, 861.3595)
 )
 
-
-
-ride_data_long <- pivot_longer(ride_length_data, cols = c(casual, member),
-                               names_to = "Type", values_to = "Average_Ride_Length")
-
-library(ggplot2)
-
-ggplot(ride_data_long, aes(x = factor(day_of_week), y = Average_Ride_Length, fill = Type)) +
-  geom_bar(position = "dodge", stat = "identity", alpha = 0.7) +
-  labs(x = "Day of the Week", y = "Average Ride Length", title = "Average Ride Length for Casual and Member by Day of the Week") +
-  scale_x_discrete(labels = c("1" = "Mon", "2" = "Tue", "3" = "Wed", "4" = "Thu", "5" = "Fri", "6" = "Sat", "7" = "Sun")) +
+# Plotting the bar chart with specific colors for casual and member riders
+ggplot(Cyclistic_data, aes(x = factor(day_of_week), y = ride_length_seconds, fill = member_casual)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(x = "Day of the Week", y = "Average Ride Length", title = "Average Ride Length by Day of the Week") +
+  scale_fill_manual(values = c("casual" = "#FF6A6A", "member" = "deepskyblue"), name = "Member Type") + 
   theme_minimal()
  ```
-![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/db369659-3f3b-4730-9d7a-b40adcf93c76)
+![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/fe4e0a97-3ffa-4d1e-8d2d-446903deb92d)
 
 
-```# 4. Calculate the number of rides for users by day_of_week by adding Count of trip_id to values: 
+* **Results:**
+
+- The table and bar chart align in presenting that casual riders exhibit longer average ride lengths compared to member riders for each day of the week.
+Distinct Riding Patterns:
+- Casual riders consistently demonstrate a trend of longer average ride durations than members throughout the week. This consistency suggests that casual riders might prefer and engage in longer rides across all days.
+- The disparity in average ride lengths between casual and member riders might indicate differing preferences or usage patterns. Casual riders could be using the bikes for more leisurely or extended rides compared to members, who might use them for shorter and more functional purposes. 
+
+```
+# 5. Calculate the number of rides for users by day_of_week by adding Count of trip_id to values: 
      
      pivot_table_5 <- combined_data %>%
        group_by(member_casual, day_of_week) %>%
@@ -470,8 +516,8 @@ ggplot(ride_data_long, aes(x = factor(day_of_week), y = Average_Ride_Length, fil
      print(pivot_table_5)
      view(pivot_table_5)
   
-  # Display the pivot_table_3 as markdown
-  knitr::kable(pivot_table_3, format = "markdown")
+  # Display the pivot_table_5 as markdown
+  knitr::kable(pivot_table_5, format = "markdown")
 
 | member_casual | 1      | 2      | 3      | 4      | 5      | 6      | 7      |
 |---------------|--------|--------|--------|--------|--------|--------|--------|
@@ -499,38 +545,50 @@ ride_counts_long <- tidyr::pivot_longer(ride_counts, cols = -member_casual, name
 ggplot(ride_counts_long, aes(x = factor(day_of_week), y = ride_count, fill = member_casual)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(x = "Day of the Week", y = "Count of Rides", title = "Number of Rides for Users by Day of Week") +
-  scale_fill_manual(values = c("casual" = "skyblue", "member" = "pink"), name = "User Type") +
+  scale_fill_manual(values = c("casual" = "#FF6A6A", "member" = "deepskyblue"), name = "User Type") +
   scale_y_continuous(labels = comma) +  # Formatting the Y-axis with commas
   theme_minimal()
 
 ```
-![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/7d3bf986-d667-4488-8cc6-3b5efb24d061)
+![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/c2dd3c93-602b-485d-8925-fc3555f7ec11)
 
 
-```
-# 4. Calculate 
-```
+* **Results:**
 
+- The table depicts a consistent trend where the number of rides taken by members significantly surpasses the count of rides by casual riders across all seven days.
+Daily Consistency:
+- Each day consistently displays higher ride counts for members compared to casual riders. This pattern remains consistent throughout the week.
+- The substantial difference in ride counts strongly suggests that members utilize the service more frequently compared to casual riders across all observed days.
+- The data emphasizes a higher frequency of usage among members, indicating a consistent preference for using the service regularly, potentially for commuting or daily mobility needs.
 
 ### Analysis results and insights:
 From the provided bar chartes and pivot tables, it's possible to extract several insights and observe differences in behavior between casual and member riders:
 
-1. Average Ride Length:
-   
-Casual riders tend to have longer average ride lengths compared to members. The average ride length for casual riders ranges from around 21 to 23 minutes, while for members, it's between 12 to 14 minutes.
+1. Membership Status Insights:
 
-2. Ride Length by Day of the Week:
-   
-Both casual and member riders show fluctuation in ride lengths across the days of the week.
-Casual riders seem to have slightly longer rides during weekdays, with a peak on days 1 and 7 (assuming day 1 is Sunday).
-Member riders show a more consistent ride length pattern across the week, with shorter rides compared to casual riders.
+Ride Distribution: The majority of rides, accounting for 63%, are taken by members. This suggests a significant portion of users favor annual memberships.
+Casual Riders: Although a minority compared to members, casual riders contribute notably, representing 37% of total rides.
+Usage Intensity: Members, despite being fewer in number, take a larger share of rides compared to casual riders. This implies more frequent usage among members.
 
-3.Ride Count by Day of the Week:
+2. Monthly Ride Counts:
 
-Casual riders show higher ride counts during weekdays, with a notable decrease on day 7.
-Member riders generally maintain a consistent number of rides across the week, with a slight decrease on day 7.
+Member Dominance: Members consistently show higher ride counts than casual riders across most months, indicating sustained usage throughout the year.
+Seasonal Trends: Seasonal patterns are evident, with casual rider counts peaking in summer months, while member counts show more consistency or variation.
 
-4. Behavior Patterns:
+3. Average Ride Lengths:
+
+Duration Difference: Contrary to the visual representation, casual riders exhibit longer average ride lengths compared to members in terms of seconds. This suggests casual riders might prefer longer rides per session.
+
+4. Average Ride Lengths by Day of Week:
+
+Consistent Trend: Casual riders consistently show longer average ride durations than members throughout the week. This consistency suggests a preference for longer rides among casual riders across all days.
+
+5. Ride Count by Day of Week:
+
+Usage Intensity: Members use the service significantly more than casual riders across all days, indicating a higher frequency of usage among members.
+Overall, members display more consistent and sustained usage compared to casual riders. Casual riders tend to exhibit longer individual ride durations, possibly for leisure or exploratory purposes. Understanding these behavioral differences can guide targeted marketing efforts and service adaptations to cater to the distinct preferences and usage patterns of each group.
+
+6. Behavior Patterns:
 
 Casual riders might prefer longer rides, potentially using the service for leisure or longer commutes.
 Member riders seem to utilize the service for shorter and possibly more routine trips, maintaining a consistent pattern both in ride length and ride count.
@@ -539,7 +597,12 @@ These insights suggest that casual riders tend to have longer rides and more var
 
 ### Phase 5: Share 
 
+During the Share phase, a Microsoft Power Pint was created using RStudio. The PPT contains a summarized analyses with visualizations. 
 
+
+
+
+### Phase 6: Act 
 
 
 
