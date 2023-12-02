@@ -104,7 +104,7 @@ library(readxl)
 
 Later, using **<-read.cvs** to load the 12 datasets for the the 12 months selected from November 2022 untill October 2023 of my analysis and combine them into a single dataset. While pulling the dataset, I renamed each file to this format data_YYYY_MM.
 
-#Import data 
+
 
 ```
 data_2022_11 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202211-divvy-tripdata.csv")
