@@ -18,12 +18,12 @@ There are couple questions that can guide the future marketing program and help 
 
 The director Moreno has assigned me the first question to answer which is: **How do annual members and casual riders use Cyclistic bikes differently ?**
 
-### Key Tasks 
-**1. The business task**
+### 1.1. Key Tasks 
+**1.1.1.The business task**
 
 The task of this analysis is to pinpoint essential factors and detect patterns in Cyclistic Bike-Share usage among two user groups: casual riders and annual subscribers. This understanding will enable the company to enhance its profit share by developing a new marketing plan focused on converting casual riders into annual subscribers.
 
-**2. Stakeholders**
+**1.1.2. Stakeholders**
 
 Main stakeholder: 
 * **Lily Moreno**: Team Manager, Marketing director
@@ -34,11 +34,11 @@ Subsidiary stakeholders:
 
 ## Phase 2: Prepare
 
-**1. Data Sources**
+**2.1. Data Sources**
 In this project, we will be using a public historical trip data provided by the company itself has been made available by Motivate International Inc. under this [licence](https://divvybikes.com/data-license-agreement). The data has been made available by Motivate International Inc. The statistics are orgnized as long data in CSV files  which gives information from 2013 to 2023, and it was retreived from [Data](https://divvy-tripdata.s3.amazonaws.com/index.html) and it has been safely stored in a local drive. 
 The data is a good fit for this analysis as it accomplish the required conditions for the credibility and fullfill the ROCCC approach: **Reliable**, **Original**, **Comprehensive**, **Current** and **Cited**.
 
-**2. Sort and filter the data**
+**2.2. Sort and filter the data**
 
 For this examination I am going to focus on the period between November 2022 and October 2023 as it is the more recent and relevant period of the business task. 
 
@@ -46,35 +46,35 @@ For this examination I am going to focus on the period between November 2022 and
 
 In this phase, we will clean the data and make it free of errors or mistake which could affect the credibility or the conclusions. To achieve this gool, we will be using couple tools which will be cited as follow. 
 
-**1. Tools**
+**3.1. Tools**
 * **Excel:** Data cleaning
 * **RStudio:** Data Cleaning, analysis and visualization
 
-**1.1. Excel:** 
+**3.1.1. Excel:** 
 
 First I opened the CSV files into Ms Excel to clean the data. during the process I used Power Query Editor. The cleaning steps include:
 
 
-* Removal of columns I won't needing for my analysis like latitudes, and longitudes.
+* Removal of columns I won't be needing for my analysis like latitudes, and longitudes.
 * Creation of ride_length column which is the time diference between the trip start time and the end time substracting the column "started at" and "ended at".
 * Creation of day_of_week column which is the day of the week the trip started using the function WEEKDAY.
 * Removal of rows with negative and zero ride lengths.
-* Duplicates: Rows with identical data.
-* Empty Cells: Cells with no data.
-* Inconsistent Formatting: Different formats for the same type of data.
-* Errors and Typos: Incorrect or misspelled entries.
+* Removal of Duplicates.
+* Removal of Empty Cells. 
+* Removal of Inconsistent Formatting: Different formats for the same type of data.
+* Removal of Errors and Typos: Incorrect or misspelled entries.
 * Non-printable Characters: Hidden characters that may cause issues
   
 ## Phase 4: Analyze
 
-There were over 5 million records, making the use of spreadsheets impractical for data cleaning. Faced with two choices, SQL and R, I was a little familir with both of them. Given my penchant for learning new programming languages as a new Data Analyst, I saw this as a valuable chance to acquire R skills. Consequently, I opted for R.
+There were over 5 million records, making the use of spreadsheets impractical for the rest of data cleaning. Faced with two choices, SQL and R, I was a little familir with both of them. Given my penchant for learning new programming languages as a new Data Analyst, I saw this as a valuable chance to acquire R skills. Consequently, I opted for R.
 
-### **1.1. RStudio:** 
+### **4.1. RStudio:** 
 
 As part of the preparation of data, the following is done:
 
-* the various datasets are imported to R
-* the structure of the datasets are analyzed to ensure consistency
+* The various datasets are imported to R.
+* The structure of the datasets are analyzed to ensure consistency.
 
 First I added all the packages and libraries necessary for my analysis: 
 
@@ -102,24 +102,23 @@ library(forcats)
 library(readxl)
 ```
 
-Then I donwloded the required packages needed for this libraries and analysis.
-
-Later, using **<-read.cvs** to load the 12 datasets for the 12 months from November 2022 untill October 2023 of my analysis and combine them into a single dataset. While pulling the dataset, I renamed each file to this format data_YYYY_MM.
+Later, using **<-read.cvs** to load the 12 datasets for the the 12 months selected from November 2022 untill October 2023 of my analysis and combine them into a single dataset. While pulling the dataset, I renamed each file to this format data_YYYY_MM.
 
 #Import data 
 
-```data_2022_11 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202211-divvy-tripdata.csv") View(data_2022_11)
-data_2022_12 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202212-divvy-tripdata.csv") View(data_2022_12)
-data_2023_01 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202301-divvy-tripdata.csv") View(data_2023_01)
-data_2023_02 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202302-divvy-tripdata.csv") View(data_2023_02)
-data_2023_03 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202303-divvy-tripdata.csv") View(data_2023_03)
-data_2023_04 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202304-divvy-tripdata.csv") View(data_2023_04)
-data_2023_05 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202305-divvy-tripdata.csv") View(data_2023_05)
-data_2023_06 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202306-divvy-tripdata.csv") View(data_2023_06)
-data_2023_07 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202307-divvy-tripdata.csv") View(data_2023_07)
-data_2023_08 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202308-divvy-tripdata.csv") View(data_2023_08)
-data_2023_09 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202309-divvy-tripdata.csv") View(data_2023_09)
-data_2023_10 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202310-divvy-tripdata.csv") View(data_2023_10)
+```
+data_2022_11 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202211-divvy-tripdata.csv")
+data_2022_12 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202212-divvy-tripdata.csv")
+data_2023_01 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202301-divvy-tripdata.csv")
+data_2023_02 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202302-divvy-tripdata.csv")
+data_2023_03 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202303-divvy-tripdata.csv")
+data_2023_04 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202304-divvy-tripdata.csv")
+data_2023_05 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202305-divvy-tripdata.csv")
+data_2023_06 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202306-divvy-tripdata.csv")
+data_2023_07 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202307-divvy-tripdata.csv") 
+data_2023_08 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202308-divvy-tripdata.csv") 
+data_2023_09 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202309-divvy-tripdata.csv") 
+data_2023_10 <- read.csv("~/Desktop/Cyclistic data.CSV/edited CSV/202310-divvy-tripdata.csv") 
 ```
 
 Now is to check column structures using str() to inspect the structure of each dataset and verify that the columns are in the same order and have compatible data types across datasets.
@@ -139,25 +138,17 @@ Cyclistic_data < rbind(`data_2022_11`,`data_2022_12`,`data_2023_01`,`data_2023_0
 ![Merged_data](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/d093372b-6cc5-4127-ba29-8e6e74f176ee)
 
 
-#### Data Cleaning: 
-Ensuing that data is clean and ready for analysis is crucial for several reasons:
+**4.1.1 Data Cleaning:**
 
-* Reliable Insights: Clean data ensures the accuracy and reliability of your analysis. It reduces the chances of errors, ensuring that the conclusions drawn from the data are trustworthy.
-* Credibility: Clean data increases the credibility of your findings. Stakeholders, decision-makers, or clients are more likely to trust conclusions drawn from well-maintained, clean data.
-* Informed Decision-Making: Clean data leads to accurate insights, aiding in informed decision-making. Organizations can make better strategic decisions based on reliable information.
-* Avoiding Biased Results: Dirty data, with inconsistencies, errors, or missing values, can introduce bias into your analysis. Clean data minimizes this risk, providing a more accurate representation.
-* Optimized Resource Utilization: Spending time cleaning and preparing data can be resource-intensive. Ensuring data cleanliness upfront saves time and resources in the long run.
-* Better Models: Clean data contributes to the accuracy of predictive models. Models trained on clean data tend to perform better and offer more accurate predictions.
-* Compliance: In regulated industries, adhering to data cleanliness standards is necessary for compliance with legal and industry-specific regulations.
-* Effective Collaboration: Clean data facilitates collaboration among teams. It's easier for multiple stakeholders to understand and work with clean datasets.
-* Clear Communication: Clean data simplifies the communication of findings and insights to diverse audiences, ensuring that everyone understands and interprets the results correctly.
-* Iterative Process: Regularly cleaning and maintaining data promotes a culture of continuous improvement, enhancing data quality over time.
+Ensuing that data is clean and ready for analysis is crucial for several reasons
 
 To achieve that, I will be running couple command and functions on RStudio:
 
-##### 1. Checking Structure and Summary
+**A) Checking Structure and Summary:**
 
-```Structure for data_2022_11 :
+To double check the stucture of the data: 
+
+```
 # List of all dataset variables
 data_variables <- c("data_2022_11", "data_2022_12", "data_2023_01", "data_2023_02", "data_2023_03",
                     "data_2023_04", "data_2023_05", "data_2023_06", "data_2023_07", "data_2023_08",
@@ -218,7 +209,7 @@ Column names for data_2023_10 :
 [1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"   
 ```
-#### 2. Missing Values
+**B) Missing Values:**
 
 There are many options to check for missing values using functions like is.na() or summarise().
 ```
@@ -252,14 +243,14 @@ summary(Cyclistic_data)
 ```
 It appears that there is no missing values.
 
-#### 3. Check for Duplicates
+**C) Check for Duplicates:**
 ```
 Cyclistic_data<- distinct(Cyclistic_data, .keep_all = TRUE)
 ```
 
-#### 4. Identify trends and relationships:
+**D) Identify trends and relationships:**
 
-The data is now clean and orgnized for further analysis, this will help the project to identify the behaviouor differences between annual members and casual riders. We will start conducting some calculations:
+The data is now clean and orgnized for further analysis, this will help the project to run smoothly and get better results. We will start conducting some calculations:
 
 First, I created another column to convert the format HH:MM:SS in the ride_length column to a total seconds: 
 
@@ -273,7 +264,7 @@ Cyclistic_data$ride_length_seconds <- as.numeric(
   )
 )
 ```
-
+And the results of this command provide a basic understanding of the distribution of ride lengths, including the average, range (from minimum to maximum), and the middle value (median) of the ride durations in the dataset.
 ```
 Cyclistic_data %>%
  summarise(
@@ -295,9 +286,9 @@ Then I started Creating pivot tables to quickly calculate and visualize the data
 * Calculating the average ride_length for users by day_of_week. Try columns = day_of_week; Rows = member_casual; Values = Average of ride_length.
 * Calculating the number of rides for users by day_of_week by adding Count of trip_id to Values.
 
-```
-# 1. The membership status of the riders: 
 
+**D).1. The membership status of the riders:**
+```
 pivot_table_1 <- Cyclistic_data %>%
   group_by(member_casual) %>%
   summarize(total_rides = n())
@@ -311,39 +302,39 @@ knitr::kable(pivot_table_1, format = "markdown")
 
 
 
-# Calculate total rides per membership status
+# Calculating the total rides per membership status: 
 total_rides <- Cyclistic_data %>%
   group_by(member_casual) %>%
   summarise(total_rides = n())
 
-# Define colors for categories and corresponding labels
+# Defining colors for categories and corresponding labels: 
 colors <- c("green", "skyblue")
 labels <- c("Casual", "Member")
 
-# Create pie chart with specified colors and labels
+# Creating the pie chart with specified colors and labels:
 pie(total_rides$total_rides,
     labels = paste0(labels, " ", percent(total_rides$total_rides / sum(total_rides$total_rides))),
     col = colors,
     main = "Rides by Membership Status")
 
-# Add a legend
+# Adding a legend: 
 legend("topright", legend = labels, fill = colors, title = "Membership Types")
 
 ```
 ![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/6af4f851-f2bd-430c-aaa4-1383547f26ea)
 
 
-* **Results:**
+**Results:**
+
 - The majority of rides, comprising 63%, are taken by members. This indicates a substantial portion of users opting for annual memberships.
 - Casual riders contribute significantly, representing 37% of the total rides. Despite being a minority compared to members, their presence in ride counts is notable.
 - Membership holders, despite being a smaller group, take a larger share of rides compared to casual riders. This highlights the potential higher frequency or utilization among members.
 
 
 
+**D).2. The number of rides between types per months:**
+
 ```
-# 2. The number of rides between types per months
-
-
 # Create 'month' column using lubridate package
 library(lubridate)
 Cyclistic_data$month <- month(Cyclistic_data$started_at)
@@ -385,18 +376,18 @@ knitr::kable(pivot_table_2, format = "markdown")
 
 
 
-# Convert 'started_at' to a Date object if it's not already
+# Converting 'started_at' to a Date object if it's not already:
 Cyclistic_data$started_at <- as.Date(Cyclistic_data$started_at)
 
-# Extract month from the 'started_at' column
+# Extracting month from the 'started_at' column:
 Cyclistic_data$month <- month(Cyclistic_data$started_at)
 
-# Group data by month and member_casual, calculate total rides
+# Grouping data by month and member_casual, calculate total rides:
 total_rides <- Cyclistic_data %>%
   group_by(month, member_casual) %>%
   summarise(total_rides = n())
 
-# Create a bar chart
+# Creating a bar chart:
 ggplot(total_rides, aes(x = factor(month), y = total_rides, fill = member_casual)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(x = "Month", y = "Total Rides", fill = "Member Type") +
@@ -407,7 +398,7 @@ ggplot(total_rides, aes(x = factor(month), y = total_rides, fill = member_casual
 ![Rplot02](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/537bde85-cfa5-4455-b376-ddcf3be4659a)
 
 
-* **Results:**
+**Results:**
 
 - Members consistently show higher ride counts than casual riders across most months.
 - There's a general trend of increased member rides compared to casual rides throughout the year.
@@ -419,8 +410,9 @@ ggplot(total_rides, aes(x = factor(month), y = total_rides, fill = member_casual
 - For casual riders: Strategies to promote usage during specific seasons or events when casual ridership is typically higher.
 - For members: Encouraging consistent usage throughout the year and possibly offering incentives during months with lower activity to maintain engagement.
 
-```
-# 3. Calculate the average ride_length for members and casual riders:      
+
+**D).3. Calculate the average ride_length for members and casual riders:**
+```   
      pivot_table_3 <- Cyclistic_data %>%
        group_by(member_casual) %>%
        summarise(average_ride_length_seconds = mean(ride_length_seconds, na.rm = TRUE)) %>%
@@ -437,7 +429,7 @@ View(pivot_table)
 
 
 
-# Create a ggplot 
+# Creating a ggplot 
 ggplot(Cyclistic_data, aes(x = member_casual, y = mean(ride_length_seconds), fill = member_casual)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(x = "Member Type", y = "Average Ride Length (Seconds)", title = "Average Ride Length by Member Type") +
@@ -447,7 +439,7 @@ ggplot(Cyclistic_data, aes(x = member_casual, y = mean(ride_length_seconds), fil
 
 ![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/e87f1e14-b18b-4213-b924-0c44b36054f4)
 
-* **Results:**
+**Results:**
 
 - Casual riders exhibit longer average ride durations (1285.1855 seconds) compared to members (730.0165 seconds), contrary to the bar chart's representation.
 - Contrary to the visual representation, casual riders seem to have longer average ride lengths than members in terms of seconds. This suggests that casual riders might use the bikes for longer durations per ride.
@@ -456,9 +448,9 @@ ggplot(Cyclistic_data, aes(x = member_casual, y = mean(ride_length_seconds), fil
 - For casual riders: Focus on enhancing services for longer rides or facilitating experiences suited for extended biking durations.
 - For members: Offer additional features or incentives targeting longer rides, considering their relatively shorter average ride lengths.
 
-```
-# 4. Calculate the average ride_lenght for users by day_of_week:
-     
+
+**D).4. Calculate the average ride_lenght for users by day_of_week:**
+``` 
     pivot_table_4 <- Cyclistic_data %>%
     filter(day_of_week != 0) %>%
     group_by(member_casual, day_of_week) %>%
@@ -480,7 +472,7 @@ ggplot(Cyclistic_data, aes(x = member_casual, y = mean(ride_length_seconds), fil
 |           7| 1494.176| 861.3595|
 
 
-# Sample data frame (Replace this with your actual data)
+# Creating data frame 
 Cyclistic_data <- data.frame(
   day_of_week = rep(1:7, 2),
   member_casual = rep(c("casual", "member"), each = 7),
@@ -498,16 +490,16 @@ ggplot(Cyclistic_data, aes(x = factor(day_of_week), y = ride_length_seconds, fil
 ![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/fe4e0a97-3ffa-4d1e-8d2d-446903deb92d)
 
 
-* **Results:**
+**Results:**
 
 - The table and bar chart align in presenting that casual riders exhibit longer average ride lengths compared to member riders for each day of the week.
 Distinct Riding Patterns:
 - Casual riders consistently demonstrate a trend of longer average ride durations than members throughout the week. This consistency suggests that casual riders might prefer and engage in longer rides across all days.
 - The disparity in average ride lengths between casual and member riders might indicate differing preferences or usage patterns. Casual riders could be using the bikes for more leisurely or extended rides compared to members, who might use them for shorter and more functional purposes. 
 
-```
-# 5. Calculate the number of rides for users by day_of_week by adding Count of trip_id to values: 
-     
+
+**D).5. Calculate the number of rides for users by day_of_week by adding Count of trip_id to values:** 
+```   
      pivot_table_5 <- combined_data %>%
        group_by(member_casual, day_of_week) %>%
        summarise(ride_count = n()) %>%
@@ -538,7 +530,7 @@ ride_counts <- data.frame(
   `7` = c(264252, 250611)
 )
 
-# Reshape the data to longer format
+# Reshaping the data to longer format
 ride_counts_long <- tidyr::pivot_longer(ride_counts, cols = -member_casual, names_to = "day_of_week", values_to = "ride_count")
 
 # Plotting the bar chart with formatted Y-axis
@@ -553,7 +545,7 @@ ggplot(ride_counts_long, aes(x = factor(day_of_week), y = ride_count, fill = mem
 ![image](https://github.com/YacineQbr/Cyclistic_Bike-Share/assets/103572146/c2dd3c93-602b-485d-8925-fc3555f7ec11)
 
 
-* **Results:**
+**Results:**
 
 - The table depicts a consistent trend where the number of rides taken by members significantly surpasses the count of rides by casual riders across all seven days.
 Daily Consistency:
@@ -561,7 +553,7 @@ Daily Consistency:
 - The substantial difference in ride counts strongly suggests that members utilize the service more frequently compared to casual riders across all observed days.
 - The data emphasizes a higher frequency of usage among members, indicating a consistent preference for using the service regularly, potentially for commuting or daily mobility needs.
 
-### Analysis results and insights:
+**E).Analysis results and insights:**
 From the provided bar chartes and pivot tables, it's possible to extract several insights and observe differences in behavior between casual and member riders:
 
 1. Membership Status Insights:
@@ -595,12 +587,12 @@ Member riders seem to utilize the service for shorter and possibly more routine 
 
 These insights suggest that casual riders tend to have longer rides and more variable ride counts across days, potentially using the service for leisure or occasional transportation. On the other hand, member riders show a more consistent pattern in both ride length and ride count, indicating a more routine usage, possibly for regular commuting or specific purposes. These observations could guide strategies for targeting different user groups, adjusting service offerings, or tailoring marketing efforts to attract and retain both casual and member riders
 
-### Phase 5: Share 
+## Phase 5: Share 
 
 During the Share phase, a Microsoft Power Point was created using RStudio. The PPT contains a summarized analyses with visualizations. 
 Click [Here](https://github.com/YacineQbr/Cyclistic_Bike-Share/blob/main/Cyclistic%20Bike-Share.Rmd.pptx) to view the PPT.
 
-### Phase 6: Act 
+## Phase 6: Act 
 
 Based on the data insights, here are recommendations for enhancing user conversion and engagement:
 
