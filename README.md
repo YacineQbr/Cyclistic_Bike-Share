@@ -598,8 +598,7 @@ These insights suggest that casual riders tend to have longer rides and more var
 ### Phase 5: Share 
 
 During the Share phase, a Microsoft Power Point was created using RStudio. The PPT contains a summarized analyses with visualizations. 
-
-
+Click [Here](https://github.com/YacineQbr/Cyclistic_Bike-Share/blob/main/Cyclistic%20Bike-Share.Rmd.pptx) to view the PPT.
 
 ### Phase 6: Act 
 
