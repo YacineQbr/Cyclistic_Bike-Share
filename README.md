@@ -144,7 +144,7 @@ Ensuing that data is clean and ready for analysis is crucial for several reasons
 
 To achieve that, I will be running couple command and functions on RStudio:
 
-**A) Checking Structure and Summary:**
+**A. Checking Structure and Summary:**
 
 To double check the stucture of the data: 
 
@@ -209,7 +209,7 @@ Column names for data_2023_10 :
 [1] "X"             "ride_id"       "rideable_type" "started_at"    "ended_at"      "member_casual"
 [7] "ride_length"   "day_of_week"   
 ```
-**B) Missing Values:**
+**B. Missing Values:**
 
 There are many options to check for missing values using functions like is.na() or summarise().
 ```
@@ -243,12 +243,12 @@ summary(Cyclistic_data)
 ```
 It appears that there is no missing values.
 
-**C) Check for Duplicates:**
+**C. Check for Duplicates:**
 ```
 Cyclistic_data<- distinct(Cyclistic_data, .keep_all = TRUE)
 ```
 
-**D) Identify trends and relationships:**
+**4.1.2. Identify trends and relationships:**
 
 The data is now clean and orgnized for further analysis, this will help the project to run smoothly and get better results. We will start conducting some calculations:
 
@@ -287,7 +287,7 @@ Then I started Creating pivot tables to quickly calculate and visualize the data
 * Calculating the number of rides for users by day_of_week by adding Count of trip_id to Values.
 
 
-**D).1. The membership status of the riders:**
+**A. The membership status of the riders:**
 ```
 pivot_table_1 <- Cyclistic_data %>%
   group_by(member_casual) %>%
@@ -332,7 +332,7 @@ legend("topright", legend = labels, fill = colors, title = "Membership Types")
 
 
 
-**D).2. The number of rides between types per months:**
+**B. The number of rides between types per months:**
 
 ```
 # Create 'month' column using lubridate package
@@ -411,7 +411,7 @@ ggplot(total_rides, aes(x = factor(month), y = total_rides, fill = member_casual
 - For members: Encouraging consistent usage throughout the year and possibly offering incentives during months with lower activity to maintain engagement.
 
 
-**D).3. Calculate the average ride_length for members and casual riders:**
+**C. Calculate the average ride_length for members and casual riders:**
 ```   
      pivot_table_3 <- Cyclistic_data %>%
        group_by(member_casual) %>%
@@ -449,7 +449,7 @@ ggplot(Cyclistic_data, aes(x = member_casual, y = mean(ride_length_seconds), fil
 - For members: Offer additional features or incentives targeting longer rides, considering their relatively shorter average ride lengths.
 
 
-**D).4. Calculate the average ride_lenght for users by day_of_week:**
+**D. Calculate the average ride_lenght for users by day_of_week:**
 ``` 
     pivot_table_4 <- Cyclistic_data %>%
     filter(day_of_week != 0) %>%
@@ -498,7 +498,7 @@ Distinct Riding Patterns:
 - The disparity in average ride lengths between casual and member riders might indicate differing preferences or usage patterns. Casual riders could be using the bikes for more leisurely or extended rides compared to members, who might use them for shorter and more functional purposes. 
 
 
-**D).5. Calculate the number of rides for users by day_of_week by adding Count of trip_id to values:** 
+**E. Calculate the number of rides for users by day_of_week by adding Count of trip_id to values:** 
 ```   
      pivot_table_5 <- combined_data %>%
        group_by(member_casual, day_of_week) %>%
@@ -553,34 +553,34 @@ Daily Consistency:
 - The substantial difference in ride counts strongly suggests that members utilize the service more frequently compared to casual riders across all observed days.
 - The data emphasizes a higher frequency of usage among members, indicating a consistent preference for using the service regularly, potentially for commuting or daily mobility needs.
 
-**E).Analysis results and insights:**
+**4.1.3.Analysis results and insights:**
 From the provided bar chartes and pivot tables, it's possible to extract several insights and observe differences in behavior between casual and member riders:
 
-1. Membership Status Insights:
+**A. Membership Status Insights:**
 
 Ride Distribution: The majority of rides, accounting for 63%, are taken by members. This suggests a significant portion of users favor annual memberships.
 Casual Riders: Although a minority compared to members, casual riders contribute notably, representing 37% of total rides.
 Usage Intensity: Members, despite being fewer in number, take a larger share of rides compared to casual riders. This implies more frequent usage among members.
 
-2. Monthly Ride Counts:
+**B. Monthly Ride Counts:**
 
 Member Dominance: Members consistently show higher ride counts than casual riders across most months, indicating sustained usage throughout the year.
 Seasonal Trends: Seasonal patterns are evident, with casual rider counts peaking in summer months, while member counts show more consistency or variation.
 
-3. Average Ride Lengths:
+**C. Average Ride Lengths:**
 
 Duration Difference: Contrary to the visual representation, casual riders exhibit longer average ride lengths compared to members in terms of seconds. This suggests casual riders might prefer longer rides per session.
 
-4. Average Ride Lengths by Day of Week:
+**D. Average Ride Lengths by Day of Week:**
 
 Consistent Trend: Casual riders consistently show longer average ride durations than members throughout the week. This consistency suggests a preference for longer rides among casual riders across all days.
 
-5. Ride Count by Day of Week:
+**E. Ride Count by Day of Week:**
 
 Usage Intensity: Members use the service significantly more than casual riders across all days, indicating a higher frequency of usage among members.
 Overall, members display more consistent and sustained usage compared to casual riders. Casual riders tend to exhibit longer individual ride durations, possibly for leisure or exploratory purposes. Understanding these behavioral differences can guide targeted marketing efforts and service adaptations to cater to the distinct preferences and usage patterns of each group.
 
-6. Behavior Patterns:
+**F. Behavior Patterns:**
 
 Casual riders might prefer longer rides, potentially using the service for leisure or longer commutes.
 Member riders seem to utilize the service for shorter and possibly more routine trips, maintaining a consistent pattern both in ride length and ride count.
